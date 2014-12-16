@@ -55,10 +55,10 @@ $(document).ready(function () {
       i;
 
   for (i = 0; i < linksLength; i++) {
-    if (links[i].hostname !== window.location.hostname) {
+    if (links[i].hostname && links[i].hostname !== window.location.hostname) {
       links[i].target = '_blank';
     }
   }
 
-
 });
+
