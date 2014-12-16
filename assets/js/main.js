@@ -1,35 +1,64 @@
-$(document).ready(function() {
+/*globals $, document, window */
+/*jshint indent:2 */
+
+$(document).ready(function () {
+  var $panelCover = $panelCover,
+      $navigationWrapper = $('.navigation-wrapper'),
+      $mobileMenu = $('.btn-mobile-menu__icon');
 
   $('body').removeClass('no-js');
 
-  $('a.blog-button').click(function() {
-    if ($('.panel-cover').hasClass('panel-cover--collapsed')) return;
-    currentWidth = $('.panel-cover').width();
+  $('a.blog-button').click(function () {
+    if ($panelCover.hasClass('panel-cover--collapsed')) return;
+
+    var currentWidth = $panelCover.width();
+
     if (currentWidth < 960) {
-      $('.panel-cover').addClass('panel-cover--collapsed');
+      $panelCover.addClass('panel-cover--collapsed');
       $('.content-wrapper').addClass('animated slideInRight');
     } else {
-      $('.panel-cover').css('max-width',currentWidth);
-      $('.panel-cover').animate({'max-width': '530px', 'width': '40%'}, 400, swing = 'swing', function() {} );
+      $panelCover.css('max-width', currentWidth);
+      $panelCover.animate({'max-width': '530px', 'width': '40%'}, 400, swing = 'swing', function() {} );
     }
   });
 
-  if (window.location.hash && window.location.hash == "#blog") {
-    $('.panel-cover').addClass('panel-cover--collapsed');
+
+  /* Panel Cover */
+  /* Manage collapse state */
+  /* -------------------------------------------------------------------- */
+  if (window.location.hash && window.location.hash === "#blog") {
+    $panelCover.addClass('panel-cover--collapsed');
+  }
+  if (window.location.pathname.substring(0, 5) === "/tag/") {
+    $panelCover.addClass('panel-cover--collapsed');
   }
 
-  if (window.location.pathname.substring(0, 5) == "/tag/") {
-    $('.panel-cover').addClass('panel-cover--collapsed');
+  /* Mobile Menu */
+  /* Manages classes for nav wrapper and menu */
+  /* -------------------------------------------------------------------- */
+  $('.btn-mobile-menu').on('click', function() {
+    $navigationWrapper.toggleClass('visible animated bounceInDown');
+    $mobileMenu.toggleClass('icon-list icon-x-circle animated fadeIn');
+  });
+
+  $('.navigation-wrapper .blog-button').on('click', function() {
+    $navigationWrapper.toggleClass('visible');
+    $mobileMenu.toggleClass('icon-list icon-x-circle animated fadeIn');
+  });
+
+
+  /* External Links */
+  /* Adds target _blank to external links so markdown is not cluttered with html */
+  /* -------------------------------------------------------------------- */
+  var links = document.links,
+      linksLength = links.length,
+      i;
+
+  for (i = 0; i < linksLength; i++) {
+    if (links[i].hostname !== window.location.hostname) {
+      links[i].target = '_blank';
+    }
   }
 
-  $('.btn-mobile-menu').click(function() {
-    $('.navigation-wrapper').toggleClass('visible animated bounceInDown');
-    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn');
-  });
-
-  $('.navigation-wrapper .blog-button').click(function() {
-    $('.navigation-wrapper').toggleClass('visible');
-    $('.btn-mobile-menu__icon').toggleClass('icon-list icon-x-circle animated fadeIn');
-  });
 
 });
