@@ -10,16 +10,18 @@
         <h1 class="panel-cover__title panel-title"><a href="{{@blog.url}}" title="link to homepage for {{@blog.title}}">{{@blog.title}}</a></h1>
         {{!-- <span class="panel-cover__subtitle panel-subtitle">Visual Designer</span> --}}
         <hr class="panel-cover__divider" />
-        <p class="panel-cover__description">{{@blog.description}}</p>
+        <p class="panel-cover__description">{{{@blog.description}}}</p>
         <hr class="panel-cover__divider panel-cover__divider--secondary" />
 
         <div class="navigation-wrapper">
 
           <nav class="cover-navigation cover-navigation--primary">
             <ul class="navigation">
-              <li class="navigation__item"><a href="/#blog" title="link to {{@blog.title}} blog" class="blog-button">Blog</a></li>
+              <!-- <li class="navigation__item"><a href="/#blog" title="link to {{@blog.title}} blog" class="blog-button">Blog</a></li> -->
+              <li class="navigation__item"><a href="/projects" title="projects" class="blog-button">Projects</a></li>
+              <li class="navigation__item"><a href="/about" title="about" class="blog-button">About</a></li>
             </ul>
-          </nav>
+          </nav><br>
 
           {{> social}}
 
